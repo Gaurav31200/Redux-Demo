@@ -3,16 +3,22 @@ import Cart from "./Cart";
 import { useDispatch, useSelector } from "react-redux";
 
 function App() {
-  const { quantity, value } = useSelector((state) => state.customReducer);
+  const { quantity, value, users } = useSelector(
+    (state) => state.customReducer
+  );
   const dispatch = useDispatch();
-  const incrementBy10Handler = () => {
-    dispatch({ type: "incrementBy10", payload: 10 });
+
+  const fetchData = async () => {
+    const resp = await fetch("https://dummyjson.com/products");
+    const data = await resp.json();
+    console.log(data.products);
+    dispatch({ type: "addData", payload: data.products });
   };
   return (
     <div className="App">
-      <h2>Quantity:{value}</h2>
+      <h2>Quantity:{quantity}</h2>
       <Cart />
-      <button onClick={incrementBy10Handler}>Increment by 10</button>
+      <button onClick={fetchData}>Fetch Data</button>
     </div>
   );
 }

@@ -3,6 +3,7 @@ import { createReducer } from "@reduxjs/toolkit";
 const initialState = {
   quantity: 0,
   value: 10,
+  users: [],
 };
 
 const cartReducer = createReducer(initialState, {
@@ -12,8 +13,11 @@ const cartReducer = createReducer(initialState, {
   decrement: (state) => {
     state.quantity -= 1;
   },
-  incrementBy10: (state, action) => {
+  incrementByUser: (state, action) => {
     state.quantity += action.payload;
+  },
+  addData: (state, action) => {
+    state.users = [...state.users, action.payload];
   },
 });
 
